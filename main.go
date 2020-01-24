@@ -171,11 +171,13 @@ const homeHTML = `<!DOCTYPE html>
         <title>Thoth websocket example</title>
     </head>
 	<body>
-		var egg = prompt("enter secure key");
-		console.log(egg)
+		
         <pre id="fileData">{{.Data}}</pre>
 		<script type="text/javascript">
             (function() {
+				var seckKey = prompt("enter secure key");
+				// prolly use this for authentication
+				console.log(seckKey)
                 var data = document.getElementById("fileData");
                 var conn = new WebSocket("ws://{{.Host}}/ws?lastMod={{.LastMod}}");
                 conn.onclose = function(evt) {
