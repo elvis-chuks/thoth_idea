@@ -152,12 +152,12 @@ func serveHome(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	flag.Parse()
-	if flag.NArg() != 1 {
-		log.Fatal("filename not specified")
-	}
-	filename = flag.Args()[0]
-	// filename = "thoth.json"
+	// flag.Parse()
+	// if flag.NArg() != 1 {
+	// 	log.Fatal("filename not specified")
+	// }
+	// filename = flag.Args()[0]
+	filename = "thoth.log"
 	http.HandleFunc("/", serveHome)
 	http.HandleFunc("/ws", serveWs)
 	if err := http.ListenAndServe(*addr, nil); err != nil {
@@ -171,8 +171,20 @@ const homeHTML = `<!DOCTYPE html>
         <title>Thoth websocket example</title>
     </head>
 	<body>
-		
-        <pre id="fileData">{{.Data}}</pre>
+		<div class="wrap">
+			<p><h3>Thoth logs</h3></p>
+			<div class="tool-bar">
+
+                <div class="download">
+                    <a href="#" download="thoth.log">Download</a>
+                </div>
+            </div>
+			<div class="card">
+				<div class="card-body">
+					<pre id="fileData">{{.Data}}</pre>
+				</div>
+			</div>
+		</div>
 		<script type="text/javascript">
             (function() {
 				var seckKey = prompt("enter secure key");
@@ -188,7 +200,25 @@ const homeHTML = `<!DOCTYPE html>
                     data.textContent = evt.data;
                 }
             })();
-        </script>
+		</script>
+		
+		<style>
+		
+		.wrap{
+			margin:auto;
+			width:90%;
+		}
+		.card{
+			
+			box-shadow: 2px 2px 5px 2px rgba(53, 196, 60, 0.3);
+			border-radius:10px;
+		}
+        .card-body{
+            padding:20px;
+            background-color:black; 
+			color:green;
+        }
+		</style>
     </body>
 </html>
 `
