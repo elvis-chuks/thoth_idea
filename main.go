@@ -152,12 +152,12 @@ func serveHome(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	// flag.Parse()
-	// if flag.NArg() != 1 {
-	// 	log.Fatal("filename not specified")
-	// }
-	// filename = flag.Args()[0]
-	filename = "thoth.log"
+	flag.Parse()
+	if flag.NArg() != 1 {
+		log.Fatal("filename not specified")
+	}
+	filename = flag.Args()[0]
+	// filename = "thoth.log"
 	http.HandleFunc("/", serveHome)
 	http.HandleFunc("/ws", serveWs)
 	if err := http.ListenAndServe(*addr, nil); err != nil {
